@@ -83,7 +83,7 @@ class PatientController {
         return repository.findById(id)
                 .map(patient -> { //
                     patient.setName(newPatient.getName());
-                    patient.setRole(newPatient.getRole());
+                    patient.setHeight(newPatient.getHeight());
                     patient.setModel(newPatient.getModel());
                     return repository.save(patient);
                 })
