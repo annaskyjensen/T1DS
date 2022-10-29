@@ -1,0 +1,1 @@
+matlab -nodisplay -nosplash -nodesktop -r "run('C:\Users\Bruger\Downloads\springboot-mosquitto-master\T1DS\demo 2\src\main\java\models\bin\');mvpsim(1,90,1,10,3,5,108);exit;"
