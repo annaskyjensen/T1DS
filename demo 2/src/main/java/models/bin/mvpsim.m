@@ -59,7 +59,9 @@ function [G] = mvpsim(id,meal,mtime,insulin,ttime,stime,Gs)
     tMeal           = mtime*h2min;          % [min]
     idxMeal         = tMeal  /Ts + 1;       % [#]
     D(1, idxMeal)   = meal     /Ts;         % [g CHO/min]
-    U(2, idxMeal)   = insulin*U2mU/Ts;      % [mU/min]'
+    U(2, idxMeal)   = insulin*U2mU/Ts;      % [mU/min]
+    disp(idxMeal);
+
     
     %Simulate
     [T, X] = openLoopSimulation(x0, tspan, U, D, p, simModel, simMethod, opts);
