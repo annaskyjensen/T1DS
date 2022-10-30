@@ -4,13 +4,17 @@ public class Patient {
 
     private String name;
     private int height;
-    private String model;
+    private int weight;
+    private int ssbg;
+//    private String model;
 
-    public Patient(String name, int height, String model) {
+    public Patient(String name, int height, int weight, int ssbg) {
         //attributes of our Patient domain object:
         this.name = name;
         this.height = height;
-        this.model = model;
+        this.weight = weight;
+        this.ssbg = ssbg;
+//        this.model = model;
     }
 
     public String getName() {
@@ -21,7 +25,11 @@ public class Patient {
         return this.height;
     }
 
-    public String getModel() {return this.model; }
+    public int getWeight() { return this.weight; }
+
+    public int getSsbg() { return this.ssbg; }
+
+//    public String getModel() {return this.model; }
 
     public void setName(String name) {
         this.name = name;
@@ -31,6 +39,12 @@ public class Patient {
         this.height = height;
     }
 
-    public void setModel(String model) { this.model = model; }
+    public void setWeight(int weight) { this.weight = weight; }
+
+    public void setSsbg(int ssbg) { this.ssbg = ssbg; }
+
+//    public void setModel(String model) { this.model = model; }
+
+
 
 }
