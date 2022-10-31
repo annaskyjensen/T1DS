@@ -60,7 +60,7 @@ function [G] = mvpsim(id,meal,mtime,insulin,ttime,stime,Gs)
     idxMeal         = tMeal  /Ts + 1;       % [#]
     D(1, idxMeal)   = meal     /Ts;         % [g CHO/min]
     U(2, idxMeal)   = insulin*U2mU/Ts;      % [mU/min]
-    disp(idxMeal);
+%     disp(idxMeal);
 
     
     %Simulate
