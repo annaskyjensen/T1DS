@@ -1,2 +1,2 @@
-cd "/Users/anna/Desktop/T1DS/demo2/src/main/java/models/bin" || exit
-/Applications/MATLAB_R2022a.app/bin/matlab -r "mvpsim(2,90,1,10,3,5,108)"
+cd "$1"
+matlab -r "mvpsim($2,$3,$4,$5,$6,$7,$8)"

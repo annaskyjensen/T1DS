@@ -3,20 +3,14 @@ package com.example.demo;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import models.callmedtronic;
-import java.util.List;
-import java.util.stream.Collectors;
+
+import models.StartSimulation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
-import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -94,14 +88,14 @@ import org.springframework.web.bind.annotation.RestController;
     @PostMapping("/patient") //creates a new patient
     public ResponseEntity NewPatient(@RequestBody Patient newPatient) {
         listOfPatients.add(newPatient);
-        return ResponseEntity.ok().build();//saves new patient in the repository
+        return ResponseEntity.ok(newPatient);//saves new patient in the repository
     }
 
     @PutMapping("/patient/{index}") //edits info of patient with id = {index}
     //@RequestBody will be in "Body" in json format, @PathVariable is found in the path {{id}}
     public ResponseEntity ReplacePatient(@RequestBody Patient newPatient, @PathVariable int index) {
         this.listOfPatients.set(index, newPatient);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(newPatient);
     }
 
 //    @PutMapping("/patient/{index}/") //change height of patient with id = {index}
@@ -128,8 +122,8 @@ import org.springframework.web.bind.annotation.RestController;
         if (index >= 0 && index < listOfPatients.size()) {
             ObjectMapper mapper = new ObjectMapper();
             String json = mapper.writeValueAsString(listOfPatients.get(index));
-            System.out.println(json);
-            Process process = Runtime.getRuntime().exec("/Users/anna/Desktop/T1DS/demo2/src/main/java/models/mvp.sh");
+            StartSimulation ss = new StartSimulation();
+            ss.start(index);
             return ResponseEntity.ok(json);
         }
         else
