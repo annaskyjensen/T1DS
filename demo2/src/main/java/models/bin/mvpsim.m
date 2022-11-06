@@ -69,9 +69,13 @@ function [G] = mvpsim(id,meal,mtime,insulin,ttime,stime,Gs)
     %Blood glucose concentration
     G = mvpOutput(X, p); % [mg/dL]
 
+    
+    %read to check if there's a file, if there is input meal run with it
     % Publish MQTT 
     for i = 1:length(G)
         pub(string(G(i)),string(id));
+        
+       
         %makes it run such that second = minutes 
         %ex. 5 min real time = 5 seconds sim
         pause(stime);
