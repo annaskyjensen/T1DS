@@ -122,8 +122,9 @@ import org.springframework.web.bind.annotation.RestController;
         if (index >= 0 && index < listOfPatients.size()) {
             ObjectMapper mapper = new ObjectMapper();
             String json = mapper.writeValueAsString(listOfPatients.get(index));
+            int ssbg = (listOfPatients.get(index)).getSsbg();
             StartSimulation ss = new StartSimulation();
-            ss.start(index);
+            ss.start(index,ssbg);
             return ResponseEntity.ok(json);
         }
         else

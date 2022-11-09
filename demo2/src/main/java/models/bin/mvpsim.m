@@ -2,7 +2,7 @@
 %start), insuline = insulin doses bolus w meal,  ttime = total
 %time for simulator to run (hour), stime = sample time(min), Gs = steady state blood glucose concentration
 
-function [G] = mvpsim(id,meal,mtime,insulin,ttime,stime,Gs)
+function [G] = mvpsim(id,ttime,stime,Gs)
     %Load libraries
     run('../loadLibrary');
     
@@ -13,6 +13,9 @@ function [G] = mvpsim(id,meal,mtime,insulin,ttime,stime,Gs)
     mU2U  = 1/U2mU;  % Convert from mU  to U
     
     % Parameters and steady state - We might need to change this later and use p-funtion
+    meal = [];
+    mtime = [];
+    insulin = [];
     p = generateMVPParameters();
     
     % Steady state time (not used)
