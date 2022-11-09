@@ -5,7 +5,7 @@
 function [G] = mvpsim(id,meal,mtime,insulin,ttime,stime,Gs)
     %Load libraries
     run('../loadLibrary');
-    
+
     % Conversion factors
     h2min = 60;      % Convert from h   to min
     min2h = 1/h2min; % Convert from min to h

@@ -1,9 +1,11 @@
 package com.example.demo;
 
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
+import com.fasterxml.jackson.core.JsonGenerator;
 import models.StartSimulation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,14 +23,14 @@ import org.springframework.web.bind.annotation.RestController;
     @RestController
     class PatientController {
 
-        private final ArrayList<Patient> listOfPatients;
+    private final ArrayList<Patient> listOfPatients;
 
-        PatientController() {
-            this.listOfPatients= new ArrayList<Patient>();
-            this.GenerateExampleData();
-        }
+    PatientController() {
+        this.listOfPatients = new ArrayList<Patient>();
+        this.GenerateExampleData();
+    }
 
-    private void GenerateExampleData(){
+    private void GenerateExampleData() {
         this.listOfPatients.add(new Patient(
                 "Anna",
                 165,
@@ -76,19 +78,21 @@ import org.springframework.web.bind.annotation.RestController;
 
     @GetMapping("/patient/{index}") // request info of patient with id (number)
     public ResponseEntity GiveMeNumber(@PathVariable int index) throws IOException { //number is a variable
-            if (index >= 0 && index < listOfPatients.size()) {
-                ObjectMapper mapper = new ObjectMapper();
-                String json = mapper.writeValueAsString(listOfPatients.get(index));
+        if (index >= 0 && index < listOfPatients.size()) {
+            ObjectMapper mapper = new ObjectMapper();
+            String json = mapper.writeValueAsString(listOfPatients.get(index));
             return ResponseEntity.ok(json);
-        }
-            else
-                return ResponseEntity.notFound().build();
+        } else
+            return ResponseEntity.notFound().build();
     }
 
     @PostMapping("/patient") //creates a new patient
-    public ResponseEntity NewPatient(@RequestBody Patient newPatient) {
+    public ResponseEntity NewPatient(@RequestBody Patient newPatient) throws IOException {
         listOfPatients.add(newPatient);
-        return ResponseEntity.ok(newPatient);//saves new patient in the repository
+        //create a file
+        File f = new File("/Users/anna/Desktop/PatientCollections/" + newPatient.getName() + ".txt");
+        f.createNewFile();
+        return ResponseEntity.ok(newPatient); //saves new patient in the repository
     }
 
     @PutMapping("/patient/{index}") //edits info of patient with id = {index}
@@ -112,8 +116,7 @@ import org.springframework.web.bind.annotation.RestController;
             String json = mapper.writeValueAsString(listOfPatients.get(index));
             this.listOfPatients.remove(index);
             return ResponseEntity.ok(json);
-        }
-        else
+        } else
             return ResponseEntity.notFound().build();
     }
 
@@ -122,13 +125,26 @@ import org.springframework.web.bind.annotation.RestController;
         if (index >= 0 && index < listOfPatients.size()) {
             ObjectMapper mapper = new ObjectMapper();
             String json = mapper.writeValueAsString(listOfPatients.get(index));
+            int ssbg = (listOfPatients.get(index).getSsbg());
             StartSimulation ss = new StartSimulation();
-            ss.start(index);
+            ss.start(index, ssbg);
             return ResponseEntity.ok(json);
-        }
-        else
+        } else
             return ResponseEntity.notFound().build();
     }
 
+    @PutMapping("/patient/AddMeal/{index}") //edits patient file
+    public ResponseEntity AddMeal(@RequestParam int carbs, @PathVariable int index) throws IOException {
+        File f = new File("/Users/anna/Desktop/PatientCollections/" + listOfPatients.get(index).getName() + ".txt");
+
+        FileWriter fw = new FileWriter("/Users/anna/Desktop/PatientCollections/" + listOfPatients.get(index).getName() + ".txt", true);
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write(carbs + ", ");
+        bw.close();
+
+        return ResponseEntity.ok(f.getName());
+    }
 }
+
+
 
