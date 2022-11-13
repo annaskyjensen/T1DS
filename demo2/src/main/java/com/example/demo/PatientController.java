@@ -92,7 +92,8 @@ import org.springframework.web.bind.annotation.RestController;
         //create a file
         File f = new File("/Users/anna/Desktop/PatientCollections/" + newPatient.getName() + ".txt");
         f.createNewFile();
-        return ResponseEntity.ok(newPatient); //saves new patient in the repository
+        System.out.print(newPatient.getName());
+        return ResponseEntity.ok(newPatient.getName()); //saves new patient in the repository
     }
 
     @PutMapping("/patient/{index}") //edits info of patient with id = {index}
@@ -133,17 +134,26 @@ import org.springframework.web.bind.annotation.RestController;
             return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/patient/AddMeal/{index}") //edits patient file
-    public ResponseEntity AddMeal(@RequestParam int carbs, @PathVariable int index) throws IOException {
-        File f = new File("/Users/anna/Desktop/PatientCollections/" + listOfPatients.get(index).getName() + ".txt");
+//    @PostMapping("/patient/AddMeal/{index}") //edits patient file
+//    public ResponseEntity AddMeal(@RequestBody Meal mealInfo, @PathVariable int index) throws IOException {
+////        File f = new File("/Users/anna/Desktop/PatientCollections/" + listOfPatients.get(index).getName() + ".txt");
+////
+////        FileWriter fw = new FileWriter("/Users/anna/Desktop/PatientCollections/" + listOfPatients.get(index).getName() + ".txt", true);
+////        BufferedWriter bw = new BufferedWriter(fw);
+//        System.out.print(mealInfo.getCarbs());
+////        bw.write(mealInfo.getCarbs() + ", ");
+////        bw.close();
+//        return ResponseEntity.ok().build();
+////        return ResponseEntity.ok(f.getName());
+//    }
 
-        FileWriter fw = new FileWriter("/Users/anna/Desktop/PatientCollections/" + listOfPatients.get(index).getName() + ".txt", true);
-        BufferedWriter bw = new BufferedWriter(fw);
-        bw.write(carbs + ", ");
-        bw.close();
-
-        return ResponseEntity.ok(f.getName());
+    @PostMapping("/patient/AddMeal") //creates a new patient
+    public ResponseEntity Eating(@RequestBody Meal mealInfo) throws IOException {
+        System.out.print(mealInfo.getCarbs());
+        return ResponseEntity.ok(mealInfo.getCarbs()); //saves new patient in the repository
     }
+
+
 }
 
 
