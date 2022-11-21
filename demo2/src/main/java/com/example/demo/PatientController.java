@@ -18,8 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-//creating GET, PUT, POST, DELETE functions
-//returns the response
+
     @RestController
     class PatientController {
 
@@ -103,13 +102,6 @@ import org.springframework.web.bind.annotation.RestController;
         return ResponseEntity.ok(newPatient);
     }
 
-//    @PutMapping("/patient/{index}/") //change height of patient with id = {index}
-//    public ResponseEntity UpdatePatient(@RequestParam int height, @PathVariable int index) {
-//        Patient temp = this.listOfPatients.get(index);
-//        temp.setHeight(height);
-//        return ResponseEntity.ok().build();
-//    }
-
     @DeleteMapping("/patient/{index}") //deletes patient with id = {index}
     public ResponseEntity DeletePatient(@PathVariable int index) throws IOException {
         if (index >= 0 && index < listOfPatients.size()) {
@@ -134,24 +126,19 @@ import org.springframework.web.bind.annotation.RestController;
             return ResponseEntity.notFound().build();
     }
 
-//    @PostMapping("/patient/AddMeal/{index}") //edits patient file
-//    public ResponseEntity AddMeal(@RequestBody Meal mealInfo, @PathVariable int index) throws IOException {
-////        File f = new File("/Users/anna/Desktop/PatientCollections/" + listOfPatients.get(index).getName() + ".txt");
-////
-////        FileWriter fw = new FileWriter("/Users/anna/Desktop/PatientCollections/" + listOfPatients.get(index).getName() + ".txt", true);
-////        BufferedWriter bw = new BufferedWriter(fw);
-//        System.out.print(mealInfo.getCarbs());
-////        bw.write(mealInfo.getCarbs() + ", ");
-////        bw.close();
-//        return ResponseEntity.ok().build();
-////        return ResponseEntity.ok(f.getName());
-//    }
+    @PostMapping("/patient/AddEvent/{index}") //edits patient file
+    public ResponseEntity AddEvent(@RequestBody Event eventInfo, @PathVariable int index) throws IOException {
+        File f = new File("/Users/anna/Desktop/PatientCollections/" + listOfPatients.get(index).getName() + ".txt");
 
-    @PostMapping("/patient/AddMeal") //creates a new patient
-    public ResponseEntity Eating(@RequestBody Meal mealInfo) throws IOException {
-        System.out.print(mealInfo.getCarbs());
-        return ResponseEntity.ok(mealInfo.getCarbs()); //saves new patient in the repository
+        FileWriter fw = new FileWriter("/Users/anna/Desktop/PatientCollections/" + listOfPatients.get(index).getName() + ".txt", true);
+        BufferedWriter bw = new BufferedWriter(fw);
+        System.out.print(eventInfo.getCarbs());
+        bw.write("[" + eventInfo.getCarbs() + ", " + eventInfo.getBolus() + "]");
+        bw.newLine();
+        bw.close();
+        return ResponseEntity.ok(f.getName());
     }
+
 
 
 }
