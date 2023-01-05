@@ -89,8 +89,8 @@ import org.springframework.web.bind.annotation.RestController;
     public ResponseEntity NewPatient(@RequestBody Patient newPatient) throws IOException {
         listOfPatients.add(newPatient);
         //create a file
-        //File f = new File("/Users/anna/Desktop/PatientCollections/" + newPatient.getName() + ".txt");
-        File f = new File("/demo2/src/main/java/PatientFiles" + newPatient.getName() + ".txt");
+        String path = new File("demo2/src/main/java/PatientFiles").getAbsolutePath();
+        File f = new File(path+ newPatient.getName() + ".txt");
         f.createNewFile();
         System.out.print(newPatient.getName());
         return ResponseEntity.ok(newPatient.getName()); //saves new patient in the repository
@@ -120,7 +120,7 @@ import org.springframework.web.bind.annotation.RestController;
             ObjectMapper mapper = new ObjectMapper();
             String json = mapper.writeValueAsString(listOfPatients.get(index));
             int ssbg = (listOfPatients.get(index).getSsbg());
-            String path = new File("demo2/src/main/java/com/example/demo/mvp.sh").getAbsolutePath();
+            String path = new File("demo2/src/main/java/com/example/demo/StartSimulation.sh").getAbsolutePath();
             Process process = Runtime.getRuntime().exec(new String[]{path,Integer.toString(index),Integer.toString(ssbg) });
             return ResponseEntity.ok(json);
         } else
@@ -129,9 +129,11 @@ import org.springframework.web.bind.annotation.RestController;
 
     @PostMapping("/patient/AddEvent/{index}") //edits patient file
     public ResponseEntity AddEvent(@RequestBody Event eventInfo, @PathVariable int index) throws IOException {
-        File f = new File("/Users/anna/Desktop/PatientCollections/" + listOfPatients.get(index).getName() + ".txt");
 
-        FileWriter fw = new FileWriter("/Users/anna/Desktop/PatientCollections/" + listOfPatients.get(index).getName() + ".txt", true);
+        String path = new File("demo2/src/main/java/PatientFiles").getAbsolutePath();
+        File f = new File(path + listOfPatients.get(index).getName() + ".txt");
+
+        FileWriter fw = new FileWriter(path + listOfPatients.get(index).getName() + ".txt", true);
         BufferedWriter bw = new BufferedWriter(fw);
         System.out.print(eventInfo.getCarbs());
         bw.write("[" + eventInfo.getCarbs() + ", " + eventInfo.getBolus() + "]");

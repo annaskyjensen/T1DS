@@ -17,7 +17,7 @@ public class StartSimulation {
                 Process process = Runtime.getRuntime().exec(new String[]{absolute,abssimmvp,id, "[]", "[]", "[]", "5", "5", bg});
 
             } else {
-                File simlin = new File("demo2/src/main/java/models/mvp.sh");
+                File simlin = new File("demo2/src/main/java/models/StartSimulation.sh");
                 String absolute = simlin.getAbsolutePath();
                 System.out.print(id);
                 Process process = Runtime.getRuntime().exec(new String[]{absolute, abssimmvp,id,"90", "1", "10", "2", "5", bg });
