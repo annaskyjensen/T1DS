@@ -89,7 +89,8 @@ import org.springframework.web.bind.annotation.RestController;
     public ResponseEntity NewPatient(@RequestBody Patient newPatient) throws IOException {
         listOfPatients.add(newPatient);
         //create a file
-        File f = new File("/Users/anna/Desktop/PatientCollections/" + newPatient.getName() + ".txt");
+        //File f = new File("/Users/anna/Desktop/PatientCollections/" + newPatient.getName() + ".txt");
+        File f = new File("/demo2/src/main/java/PatientFiles" + newPatient.getName() + ".txt");
         f.createNewFile();
         System.out.print(newPatient.getName());
         return ResponseEntity.ok(newPatient.getName()); //saves new patient in the repository
@@ -119,8 +120,8 @@ import org.springframework.web.bind.annotation.RestController;
             ObjectMapper mapper = new ObjectMapper();
             String json = mapper.writeValueAsString(listOfPatients.get(index));
             int ssbg = (listOfPatients.get(index).getSsbg());
-            StartSimulation ss = new StartSimulation();
-            ss.start(index, ssbg);
+            String path = new File("demo2/src/main/java/com/example/demo/mvp.sh").getAbsolutePath();
+            Process process = Runtime.getRuntime().exec(new String[]{path,Integer.toString(index),Integer.toString(ssbg) });
             return ResponseEntity.ok(json);
         } else
             return ResponseEntity.notFound().build();
