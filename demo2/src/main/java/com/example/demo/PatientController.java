@@ -3,10 +3,6 @@ package com.example.demo;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
-
-import com.fasterxml.jackson.core.JsonGenerator;
-import models.StartSimulation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.ResponseEntity;
@@ -89,7 +85,7 @@ import org.springframework.web.bind.annotation.RestController;
     public ResponseEntity NewPatient(@RequestBody Patient newPatient) throws IOException {
         listOfPatients.add(newPatient);
         //create a file
-        String path = new File("demo2/src/main/java/PatientFiles").getAbsolutePath();
+        String path = new File("demo2/src/main/java").getAbsolutePath();
         File f = new File(path+ newPatient.getName() + ".txt");
         f.createNewFile();
         System.out.print(newPatient.getName());
@@ -136,7 +132,7 @@ import org.springframework.web.bind.annotation.RestController;
         FileWriter fw = new FileWriter(path + listOfPatients.get(index).getName() + ".txt", true);
         BufferedWriter bw = new BufferedWriter(fw);
         System.out.print(eventInfo.getCarbs());
-        bw.write("[" + eventInfo.getCarbs() + ", " + eventInfo.getBolus() + "]");
+        bw.write( eventInfo.getCarbs() + ", " + eventInfo.getBolus() + ",");
         bw.newLine();
         bw.close();
         return ResponseEntity.ok(f.getName());

@@ -45,13 +45,14 @@ function [G] = mvpsim(id,Gs,file)
             fileID = fopen(file,'w');
             fclose(fileID);
             
-            %add new meal 
-            meal = cat(1,meal,A);
-            mts = i*min2h*ones(1,count);
+            %add new event 
+            mEvent= A(1:2:end);
+            iEvent= A(2:2:end);
+            meal = cat(1,meal,mEvent);
+            disp(meal);
+            mts = i*min2h*ones(1,(count/2));
             mtime = cat(1,mtime,mts);
-            %Gives 0 bolous insulin atm
-            %ins = zeros(1,count);
-            insulin = cat(1,insulin,A);
+            insulin = cat(1,insulin,iEvent);
         end
         
         tf = i; % min
