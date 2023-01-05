@@ -1,7 +1,3 @@
-%id = patient id, meal = carbs for meals, mtime = meal time(hour from
-%start), insuline = insulin doses bolus w meal,  ttime = total
-%time for simulator to run (hour), stime = sample time(min), Gs = steady state blood glucose concentration
-
 function [G] = mvpsim(id,meal,mtime,insulin,ttime,stime,Gs)
     %Load libraries
     run('../loadLibrary');
@@ -60,8 +56,6 @@ function [G] = mvpsim(id,meal,mtime,insulin,ttime,stime,Gs)
     idxMeal         = tMeal  /Ts + 1;       % [#]
     D(1, idxMeal)   = meal     /Ts;         % [g CHO/min]
     U(2, idxMeal)   = insulin*U2mU/Ts;      % [mU/min]
-%     disp(idxMeal);
-
     
     %Simulate
     [T, X] = openLoopSimulation(x0, tspan, U, D, p, simModel, simMethod, opts);
