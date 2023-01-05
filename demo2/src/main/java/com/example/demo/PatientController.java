@@ -133,7 +133,6 @@ import org.springframework.web.bind.annotation.RestController;
         BufferedWriter bw = new BufferedWriter(fw);
         System.out.print(eventInfo.getCarbs());
         bw.write( eventInfo.getCarbs() + ", " + eventInfo.getBolus() + ",");
-        bw.newLine();
         bw.close();
         return ResponseEntity.ok(f.getName());
     }
