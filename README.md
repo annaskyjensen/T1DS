@@ -13,4 +13,4 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## License
-[DTU](https://choosealicense.com/licenses/dtu/)
+[MIT](https://choosealicense.com/licenses/MIT/)
